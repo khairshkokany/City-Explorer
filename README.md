@@ -68,3 +68,42 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+# CITY EXLOPRER
+
+**Author**: KHAIR SHKOKANY
+**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+
+## Overview
+To know what the name of city of your search and the location 
+
+## Getting Started
+just search in the box the city of what you need to know about it the click to explorer 
+
+## Architecture
+we using react 'JS code , CSS ' 
+
+
+## Change Log
+
+
+1-8-2021 2 pm - Application in progress with some edits in API 
+
+## Credit and Collaborations
+https://locationiq.com/
+
+Time Estimates
+
+
+Name of feature: 
+lab06 'City Explorer'
+
+Estimate of time needed to complete: 2 hours
+
+Start time: 2 pm 
+
+Finish time: 4 pm
+
+Actual time needed to complete: 2.30 hours
