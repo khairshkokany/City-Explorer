@@ -2,6 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
+import Weather from './Component/weather'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -53,6 +54,21 @@ class App extends React.Component{
 
     };
 
+    getWeatherInfo = async()=>{
+     
+      let URL = `${process.env.REACT_APP_SERVER_URL}/weather?searchQuery=Amman`;
+      let weatherData = await axios.get(URL);
+
+      this.setState({
+          timeDate : weatherData.data.timedate,
+          description : weatherData.data.description
+      })
+      console.log(this.state.description);
+  }
+
+
+
+
 render(){
   return (
 <>
@@ -65,12 +81,15 @@ render(){
     </Form.Text>
   </Form.Group>
 
-  <Button  variant="primary" type="submit">
+  <Button onChange={this.handleClick} variant="primary" type="submit">
     Explore!
   </Button>
 </Form>
 
 <p className='name'>{this.state.cityName}</p>
+<p className='name'>this is latitude:{this.state.lat}</p>
+<p className='name'>this is longitude:{this.state.lon}</p>
+
 {
 this.state.showMap &&
 <img src={`https://maps.locationiq.com/v3/staticmap?key=${this.state.key}&center=${this.state.lat},${this.state.lon}`} alt='mapsImg' />
@@ -83,6 +102,15 @@ this.state.showMap &&
   this.state.error
 }
 
+<>
+
+<Weather 
+
+handleClick = {this.getWeatherInfo}
+
+/>
+{this.props.timeDate}
+</>
 
 </>
 
