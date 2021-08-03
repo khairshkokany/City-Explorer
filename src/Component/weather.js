@@ -4,40 +4,23 @@ import React from 'react';
 
 class weather extends React.Component {
 
-    constructor (props) {
-        super(props);
-        this.state = {
-            timeDate:'',
-            description:''
-        }
-    }
 
-    // getWeatherInfo = async()=>{
-     
-    //     let URL = `${process.env.REACT_APP_SERVER_URL}/weather?searchQuery=Amman`;
-    //     let weatherData = await axios.get(URL);
-
-    //     this.setState({
-    //         timeDate : weatherData.data.timedate,
-    //         description : weatherData.data.description
-    //     })
-    //     console.log(this.state.description);
-    // }
-
+  
     render() {
 
         return(
-            <>
+            this.props.weather.map((item)=>(
 
-          {/* <div >handleClick={this.getWeatherInfo}</div> */}
-         <p>{this.state.timeDate}</p>
-        <p>{this.state.description}</p>
-         
-            </>
+                <>
+                <p>Date : {item.date}</p>
+                <p>Description : {item.description}</p>
+                </>
+            )
+            )
         )
+        }
+
+
     }
-
-}
-
 
 export default weather;
