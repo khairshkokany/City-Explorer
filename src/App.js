@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loc: '',
+      cityName: '',
       latitude: '',
       longitude: '',
       searchQuery: '',
@@ -36,23 +36,23 @@ class App extends React.Component {
   displayLatLon = async () => {
     // let key = 'pk.48dbe3588abb5a8cc8ef84cef530f4bd';
     const URL = `https://eu1.locationiq.com/v1/search.php?key=pk.48dbe3588abb5a8cc8ef84cef530f4bd&q=${this.state.searchQuery}&format=json`;
-    let loc;
+    let cityName;
 
     try {
 
-      loc = await axios.get(URL);
-      console.log(loc.data[0].display_name)
+      let getData = await axios.get(URL);
+      console.log(getData.data[0].display_name)
       this.setState({
-        loc: loc.data[0].display_name,
-        latitude: loc.data[0].lat,
-        longitude: loc.data[0].lon,
+        cityName: getData.data[0].display_name,
+        latitude: getData.data[0].lat,
+        longitude: getData.data[0].lon,
         showMap: true,
 
 
 
 
       });
-      this.displayWeather(loc.data[0].lat, loc.data[0].lon)
+      this.displayWeather(cityName.data[0].lat, cityName.data[0].lon)
     }
     catch (error){
 
@@ -93,7 +93,7 @@ class App extends React.Component {
 
         <SearchForm
 
-          updateloc={this.updateloc}
+          updateCityName={this.updateCityName}
           displayLatLon={this.displayLatLon}
           error={this.state.showErr}
 
@@ -106,7 +106,7 @@ class App extends React.Component {
             <>
               <>
                 <Title
-                  loc={this.state.loc}
+                  cityName={this.state.cityName}
                   lat={this.state.latitude}
                   lon={this.state.longitude}
                 />
@@ -116,7 +116,7 @@ class App extends React.Component {
               <>
                 <Map
                   img_url={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_MAP_KEY}&center=${this.state.latitude},${this.state.longitude}&format=jpg`}
-                  city={this.state.loc}
+                  city={this.state.cityName}
                 />
               </>
             </>
