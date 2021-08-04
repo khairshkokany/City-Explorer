@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import Weather from './Component/weather'
-import Title from './Component/titleCity'
+import Weather from './Component/Weather'
+import Title from './Component/TitleCity'
 import Map from './Component/Map'
-import SearchForm from './Component/searchForm'
+import SearchForm from './Component/SearchForm'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+// import Weather from './Component/weather';
 
 class App extends React.Component {
 
@@ -19,15 +20,15 @@ class App extends React.Component {
       searchQuery: '',
       showMap: false,
       showErr: false,
-      error: 'Hello This is your error if our today , Thank You! '
-
+      weather:[],
+      error: ''
     }
 
   }
 
-  updateCityName = (event) => {
+  updateCityName =  (e) => {
     this.setState({
-      searchQuery: event.target.value
+      searchQuery: e.target.value
 
     });
 
@@ -35,21 +36,19 @@ class App extends React.Component {
 
   displayLatLon = async () => {
     // let key = 'pk.48dbe3588abb5a8cc8ef84cef530f4bd';
-    const URL = `https://eu1.locationiq.com/v1/search.php?key=pk.48dbe3588abb5a8cc8ef84cef530f4bd&q=${this.state.searchQuery}&format=json`;
+    const URL = `https://us1.locationiq.com/v1/search.php?key=pk.b7ed2f8e0794d736835db8eecf4aa23f&q=${this.state.searchQuery}&format=json`;
     let cityName;
 
     try {
 
-      let getData = await axios.get(URL);
-      console.log(getData.data[0].display_name)
+      cityName = await axios.get(URL);
+      console.log(cityName.data[0].display_name)
       this.setState({
-        cityName: getData.data[0].display_name,
-        latitude: getData.data[0].lat,
-        longitude: getData.data[0].lon,
+        cityName: cityName.data[0].display_name,
+        latitude: cityName.data[0].lat,
+        longitude: cityName.data[0].lon,
         showMap: true,
-
-
-
+        showErr : false
 
       });
       this.displayWeather(cityName.data[0].lat, cityName.data[0].lon)
@@ -58,7 +57,8 @@ class App extends React.Component {
 
       this.setState({
         showMap: false,
-        showErr: true
+        showErr: true,
+        error : error.response.status + ': ' + error.response.data.error 
       });
 
     }
@@ -68,7 +68,7 @@ class App extends React.Component {
 
     try {
 
-      const weather = await axios.get(`http://localhost:3001/weather?searchQuery=${this.state.searchQuery}&lon=${this.state.lon}&lat=${this.state.lat}`);
+      const weather = await axios.get(`http://localhost:3001/weather?q=${this.state.searchQuery}&lon=${this.state.longitude}&lat=${this.state.latitude}`);
       console.log(weather);
       this.setState({
         weather: weather.data
@@ -79,7 +79,8 @@ class App extends React.Component {
 
       this.setState({
         showMap: false,
-        showErr: true
+        showErr: true,
+        error : error.response.status + ': ' + error.response.data.error 
 
       })
     }
@@ -95,38 +96,37 @@ class App extends React.Component {
 
           updateCityName={this.updateCityName}
           displayLatLon={this.displayLatLon}
-          error={this.state.showErr}
+          showErr={this.state.showErr}
+          error = {this.state.error}
+
 
 
         />
 
 
-        {this.state.displayMap &&
+        {this.state.showMap &&
           <>
-            <>
-              <>
+            
                 <Title
-                  cityName={this.state.cityName}
+                  city={this.state.cityName}
                   lat={this.state.latitude}
                   lon={this.state.longitude}
                 />
-              </>
-            </>
-            <>
-              <>
+           
+            
                 <Map
-                  img_url={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_MAP_KEY}&center=${this.state.latitude},${this.state.longitude}&format=jpg`}
+                  img_url={`https://maps.locationiq.com/v3/staticmap?key=pk.b7ed2f8e0794d736835db8eecf4aa23f
+                  &center=${this.state.latitude},${this.state.longitude}&format=jpg`}
                   city={this.state.cityName}
                 />
-              </>
-            </>
-            <>
-              <>
+            
+           
+              
                 <Weather
                   weather={this.state.weather}
                 />
-              </>
-            </>
+             
+            
           </>
         }
       </>

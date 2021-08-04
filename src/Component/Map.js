@@ -7,7 +7,7 @@ class Map extends React.Component {
     return(
        
       
-<img src={`https://maps.locationiq.com/v3/staticmap?key=${this.state.key}&center=${this.state.lat},${this.state.lon}`} alt='mapsImg' />
+<img src={this.props.img_url} alt='mapsImg' />
   
     )
   }
