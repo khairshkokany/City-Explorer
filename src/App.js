@@ -3,6 +3,8 @@ import axios from 'axios';
 import Weather from './Component/Weather'
 import Title from './Component/TitleCity'
 import Map from './Component/Map'
+import Movies from './Component/Movies'
+
 import SearchForm from './Component/SearchForm'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,6 +23,7 @@ class App extends React.Component {
       showMap: false,
       showErr: false,
       weather:[],
+      movie:[],
       error: ''
     }
 
@@ -52,6 +55,7 @@ class App extends React.Component {
 
       });
       this.displayWeather(cityName.data[0].lat, cityName.data[0].lon)
+      
     }
     catch (error){
 
@@ -63,15 +67,25 @@ class App extends React.Component {
 
     }
   }
+  
 
   displayWeather = async (lat, lon) => {
 
     try {
 
       const weather = await axios.get(`http://localhost:3001/weather?q=${this.state.searchQuery}&lon=${this.state.longitude}&lat=${this.state.latitude}`);
+
       console.log(weather);
       this.setState({
-        weather: weather.data
+        weather: weather.data,
+        
+      })
+
+
+      const movie = await axios.get(`http://localhost:3001/movie?query=${this.state.searchQuery}`)
+      console.log(movie);
+      this.setState({
+        movie : movie.data
 
       })
     }
@@ -125,6 +139,11 @@ class App extends React.Component {
                 <Weather
                   weather={this.state.weather}
                 />
+
+                <Movies
+                movie={this.state.movie}
+                />
+                
              
             
           </>
