@@ -82,7 +82,7 @@ class App extends React.Component {
       })
 
 
-      const movie = await axios.get(`http://localhost:3001/movie?query=${this.state.searchQuery}`)
+      const movie = await axios.get(`http://localhost:3001/movies?query=${this.state.searchQuery}`)
       console.log(movie);
       this.setState({
         movie : movie.data

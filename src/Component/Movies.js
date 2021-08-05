@@ -10,12 +10,22 @@ class movies extends React.Component {
 console.log(this.props.movie);
         return(
             this.props.movie.map((item)=>(
-
                 <>
-                <p> {item.title}</p>
                 
-                <p> {item.poster_path}</p>
+                <p> {item.title}</p>
+                <p>{item.overview}</p>
                 <p>{item.vote_average}</p>
+                
+                <img src={item.poster_path} alt = ''/>
+                <p>{item.vote_count}</p>
+                <p>{item.overview}</p>
+                <p>{item.overview}</p>
+                <p>{item.overview}</p>
+                <p>{item.overview}</p>
+                <p>{item.overview}</p>
+                <p>{item.overview}</p>
+                <p>{item.overview}</p>
+
                 
                 {/* <p> {item.description}</p>
                 <p>{item.dateTime}</p>
