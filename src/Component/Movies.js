@@ -15,23 +15,20 @@ console.log(this.props.movie);
                 <p> {item.title}</p>
                 <p>{item.overview}</p>
                 <p>{item.vote_average}</p>
+                <p>{item.vote_count}</p>
                 
                 <img src={item.poster_path} alt = ''/>
-                <p>{item.vote_count}</p>
-                <p>{item.overview}</p>
-                <p>{item.overview}</p>
-                <p>{item.overview}</p>
-                <p>{item.overview}</p>
-                <p>{item.overview}</p>
-                <p>{item.overview}</p>
-                <p>{item.overview}</p>
-
+                <p>{item.popularity}</p>
+                
+                <p>{item.release_data}</p>
+               
                 
                 {/* <p> {item.description}</p>
                 <p>{item.dateTime}</p>
                 
                 <p> {item.description}</p> */}
                 </>
+
             )
             )
         )
